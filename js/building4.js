@@ -1,0 +1,223 @@
+let videoRandButton;
+let canvas;
+let slider;
+let guessButton;
+
+let table;
+let dateMenu;
+let videoArrays = {}; // Store video arrays by date in an object
+let tikTokVideo;
+
+let tiktokEmbedBool = false;
+let tiktokBlockQuote;
+let tiktokScript;
+let tiktokSectionTag;
+
+let phoneWidth;
+let phoneHeight;
+let phoneHomeButton;
+let phoneSpeaker;
+
+// let heart;
+let heartClicked = false;
+
+// Background text
+let string = `
+Roe v. Wade (Roe) challenged the Texas law that criminalized abortion, meaning doctors could be fined or put in jail for performing the procedure (Oyez, n.d.). The Roe decision declared the Texas law unconstitutional and affirmed a right to abortion based on the Due Process Clause of the 14th Amendment. For states to guarantee “due process of law,” certain rights must be protected (Johnson, 2022). This includes the rights listed in the Bill of Rights, such as the freedom of the press: if the state government were to restrict freedom of the press, there could not be due process of law (Johnson, 2022). Similarly, there cannot be due process of law if an individual were denied legal counsel or denied a speedy trial, which are protected under the 6th Amendment (Johnson, 2022). 
+Substantive due process extends the list of fundamental liberties to include those that are not explicitly spelled out in the Constitution (Johnson, 2022). The basis is that these implicit liberties are fundamental to guaranteeing due process and cannot be restricted by state or federal government (Johnson, 2022). Up until the Dobbs v. Jackson Women’s Health Organization (Dobbs) decision, the right for a woman to terminate her pregnancy was considered by the Court to be fundamental to fully participating in the process of a liberal democratic society even though it was not explicitly stated in the Constitution (Johnson, 2022). It was considered implied under the right to privacy in the 14th Amendment (Norrander & Wilcox, 2023). Other private, sexual, marital, and reproductive rights are protected by this logic, such as interracial marriage (Loving v. Virginia in 1967) and same-sex marriage (Obergefell v. Hodges in 2015) (Johnson, 2022). 
+Under Roe, states were permitted to regulate abortion according to a framework established in the majority opinion written by Justice Harry Blackmun (Norrander & Wilcox, 2023). States could not restrict abortions in the first trimester, could regulate abortions to protect the pregnant woman’s health in the second trimester, and could restrict abortion to preserve fetal life in the third trimester (Norrander & Wilcox, 2023). 
+In Planned Parenthood of Southeastern Pennsylvania v. Casey (Casey), the Court examined Pennsylvania law that required women who want an abortion to obtain informed consent and wait 24 hours before the procedure (Oyez, n.d.). It also required married women to notify their husbands that they intend to get an abortion and required minors to obtain parental consent (Oyez, n.d.). The Court reaffirmed the right to abortion in Roe, but it established a new “undue burden” standard to assess abortion restrictions. The Court defined an undue burden as a “‘substantial obstacle in the path of a woman seeking an abortion before the fetus attains viability’” (Oyez, n.d.). The only restriction the Court overturned under this standard was the husband notification requirement, reasoning that women may fear domestic abuse after telling their husbands that they are considering an abortion (Oyez, n.d.). 
+The Casey decision changed the trimester approach to a viability approach in state regulation, now allowing states to regulate abortion after the point of viability (Oyez, n.d.). Viability is the level of development at which the fetus could survive outside of the womb. The coauthors of the majority opinion – Justices Sandra Day O’Connor, Anthony Kennedy, and David Souter – recognized that the point of viability would gradually become earlier in the pregnancy due to medical advances (Oyez, n.d.). Casey effectively tightened abortion regulations and set the scene for future tightened regulations. Yet, this was still considered moderate because the Court had initially voted in conference to overturn Roe until O’Connor, Kennedy, and Souter sought a middle ground together (Oyez, n.d.).   
+Dobbs completely reneged the constitutional protection of abortion by overturning Roe and Casey and narrowed substantive due process. Dobbs addressed a Mississippi law that prohibited all abortions after 15 weeks into the pregnancy with few exceptions (Oyez, n.d.). In his majority opinion in Dobbs, Justice Alito maintained that abortion is not a right guaranteed by the 14th Amendment’s Due Process Clause (Johnson, 2022). He distinguished abortion from other implicit rights because “abortion ‘destroys … potential life’” (Johnson, 2022, p. 617). As such, the potential life of the fetus after a certain period of development in the pregnancy, which is determined by each state, comes before a woman’s right to an abortion (Johnson, 2022). Furthermore, “[Justice] Alito argued that substantive due process rights ‘must be “deeply rooted in this Nation’s history and tradition” and “implicit in the concept of ordered liberty”’ (Johnson, 2022, p. 618). This argument was based on the decision in Washington v. Glucksberg in 1997 which determined that the right to die with assistance – voluntary euthanasia – was not a right protected by the Due Process Clause because it was not fundamentally and deeply rooted in American history and tradition (Johnson, 2022). Justice Alito therefore argued that abortion likewise does not meet these criteria. 
+Although the 2014 Obergefell decision that protected gay marriage set a precedent that “history and tradition do not set the ‘outer boundaries’ of fundamental rights,” the 2022 Dobbs decision insisted on setting those hard boundaries of history and tradition to determine rights that come out of substantive due process (Johnson, 2022, p. 618). This puts other substantive due process rights like gay marriage and interracial marriage at risk. Justices Stephen Breyer, Sonia Sotomayor, and Elena Kagan wrote the dissent for Dobbs and warned that such freedoms could be in danger following the Dobbs decision (Chappell & Clark, 2022). In response to the majority’s argument that abortion is not protected by the 14th Amendment, the dissenters wrote that the Court relegated women to second-class citizenship because the framers of the 14th Amendment and the amendment’s ratifiers were all men (Chappell & Clark, 2022). Therefore, strictly interpreting law and the Constitution according to the original intent of its creators fails to recognize that the views and beliefs of women were not incorporated. History and tradition privilege the male point of view, and as such, so does the Court’s decision. 
+The Court returned the abortion issue to the states, each of which may determine at what point in the pregnancy the potential life of the fetus takes precedence over a woman’s right to an abortion (Johnson, 2022). The Dobbs decision leaves open the possibility that states can determine that a woman never has the right to terminate a pregnancy (Johnson, 2022). The Court majority framed returning the abortion issue to the states as a decision that is democratic and returns the power to the people (Murray & Shaw, 2024). They argued that the Court had overreached in Roe and Casey and closed off the democratic process on a highly contentious issue (Murray & Shaw, 2024). 
+However, Melissa Murray and Katherine Shaw (2024) contend that the Court’s invocation of democracy in the Dobbs decision has several shortcomings. Conceptually, the Court’s idea of democracy did not recognize that democratic deliberation goes beyond state legislative activity and also involves state courts and executives, the federal government, local officials, and other actors (Murray & Shaw, 2024). The Court also did not recognize that while women, as direct stakeholders in the Roe and Dobbs decisions, can participate in democracy by voting, they remain underrepresented in electoral office and the sphere of campaign finance (Murray & Shaw, 2024). Further, the laws that the Court interprets historically did not involve women and people of color in their creation (Murray & Shaw, 2024). This argument echoes the position of the dissent in Dobbs. The Court has also repeatedly cited democracy and political processes to avoid making decisions that would improve the rights and status of minority groups (Murray & Shaw, 2024). In this way, invoking democracy is rhetorical in that it avoids claims of judicial activism (Murray & Shaw, 2024). Judicial activism exceeds judicial authority in that judges make rulings based on their personal beliefs instead of according to their interpretation of the law (Legal Information Institute, n.d.). Judicial activism is the opposite of judicial restraint in which judges are reluctant to reinterpret law; yet, the Court overturned decades of precedence by reversing Roe (Legal Information Institute, n.d.). 
+Murray and Shaw (2024) point out that while the Court cites a return to democracy in its majority decision, the Court’s other recent decisions actively intervene in the democratic landscape. This includes intervening in electoral processes. For example, in 2019, the Court decided in Rucho v. Common Cause, “that federal courts will not enforce any limits of partisan gerrymandering” (Murray & Shaw, 2024, p. 778). Murray and Shaw (2024) also characterize the Court’s invocation of democracy as meaningful because it is another way to assist the pro-life movement that claims a fetus has constitutional interests that the Court must protect. 
+After Dobbs, abortion trigger laws went into effect across the country. Trigger laws are passed by states to generally express disapproval of the Court’s decisions (Berns, 2009). They contain substantive provisions and trigger provisions. The substantive provisions contain the actual content of the law, which is unconstitutional under the current judicial doctrine (Berns, 2009). For instance, a substantive provision might state “‘No elementary school in this state may admit both black and white students’” (Berns, 2009, p. 1641). This is unconstitutional under the Brown v. Board of Education decision of 1954. Trigger provisions postpone when the law goes into effect until a change in constitutional law that makes the substantive provision constitutional (Berns, 2009). The trigger provision may read “‘This statute will not take effect until the Supreme Court of the United States overrules Brown v. Board of Education’” (Berns, 2009, p. 1641). In sum, trigger provisions “explicitly postpone the effectiveness of the laws’ substantive provisions until they would not violate the Constitution” (Berns, 2009, p. 1647). 
+Most trigger laws address abortion (Berns, 2009). Abortion trigger laws have existed since Roe was decided. Idaho and South Dakota had the earliest abortion trigger laws, passed within three months of the release of the Roe decision (Berns, 2009). The Idaho statute would have been triggered by the Supreme Court overruling Roe, the addition of a state constitutional amendment overruling Roe, or the determination of the governor that an event has occurred that would overrule Roe (Berns, 2009). South Dakota’s statute would have been triggered when “‘the states are given exclusive authority to regulate abortion’” (Berns, 2009, p. 1643). Both the Idaho and South Dakota statutes would have banned most abortions and imprisoned the mother for obtaining an abortion, but they were repealed in in 1990 and 1993, respectively, during the period of time when the Supreme Court began to give states more power to regulate abortion access (Berns, 2009). Idaho sought to implement a strong abortion ban with few exceptions, although the governor vetoed the restrictions (Berns, 2009). South Dakota implemented abortion restrictions similar to those that the Court upheld in Casey in 1992 (Berns, 2009). 
+South Dakota, North Dakota, Louisiana, and Mississippi enacted new trigger laws from 2005 to 2007 (Berns, 2009). Each trigger law made the act of performing, procuring, or prescribing an abortion a felony (Berns, 2009). They had few exceptions for cases of sexual assault or incest and for concerns regarding the health of the mother (Berns, 2009). While the content of the laws was similar, the event each would be triggered by was unique. South Dakota’s trigger event would be when the Supreme Court returned the power to regulate abortion to the states (Berns, 2009). Louisiana’s event would be when a constitutional amendment returned the power to regulate abortion to the states or when Roe was partially or wholly reversed (Berns, 2009). Mississippi’s trigger event would be ten days after the state’s attorney general determined that the Court overruled Roe (Berns, 2009). North Dakota’s event would be when the state’s attorney general determined that the substantive provision would be upheld as constitutional by the courts and the Legislative Council approved the attorney general’s recommendation (Berns, 2009). 
+Of the four trigger laws, only North Dakota’s could be enacted without action by the Supreme Court (Berns, 2009). The law allows speculative reasoning – such as the appointment of a new Justice or the election of a President who would be expected to appoint Justices opposed to Roe – for the attorney general to conclude that a court would uphold the trigger law (Berns, 2009). The attorney general would be subject to only limited legislative review since only the Legislative Council composed of twelve individuals would review the attorney general’s proclamation (Berns, 2009).
+Thirteen states were empowered to regulate and prohibit access to abortions when their trigger laws were enacted following the release of the Dobbs decision: Arkansas, Idaho, Kentucky, Louisiana, Mississippi, Missouri, North Dakota, Oklahoma, South Dakota, Tennessee, Texas, Utah, and Wyoming (Nash & Guarnieri, 2022).  Eighteen states across the country currently ban abortion altogether or after six weeks of pregnancy (Center for Reproductive Rights, 2024). 
+The Courts have had a variety of reactions to laws and actions designed to limit access to abortion. North Dakota’s 2007 trigger ban that outlawed most abortion services went into effect after the Dobbs decision in 2022 (Center for Reproductive Rights, 2024). It was blocked by the courts, however, in March 2023 because it had no exceptions for life- or health-preserving abortions (Center for Reproductive Rights, 2024). In April 2023, North Dakota passed another abortion ban, which outlawed all abortions, but in September 2024, a trial court found the ban to be unconstitutional (Center for Reproductive Rights, 2024). In the opinion, Judge Bruce Romanick stated: “The North Dakota Constitution guarantees each individual, including women, the fundamental right to make medical judgments affecting his or her bodily integrity, health, and autonomy… This section necessarily and more specifically protects a woman’s right to procreative autonomy—including to seek and obtain a pre-viability abortion” (Center for Reproductive Rights, 2024).  
+As of October 8th, 2024, there are fifteen cases of litigation at the state level involving access to contraception and abortion (KFF, 2024). In Idaho, Iowa, Oklahoma, and Florida, litigation upheld abortion bans (KFF, 2024). On the other hand, in Michigan in 2022, the Court of Claims permanently blocked an unconstitutional 1931 criminal abortion ban; like Judge Romanick of North Dakota, Judge Elizabeth Gleicher wrote that “enforcement would deprive pregnant women of their right to bodily integrity and autonomy, and the equal protection of the law” (Planned Parenthood, 2022). Ongoing litigation with abortion bans currently in effect are located in Arizona, Nebraska, Missouri, Indiana, Kentucky, Tennessee, North Carolina, South Carolina, and Georgia (KFF, 2024). Ongoing litigation with abortion bans temporarily blocked are located in Utah, Wyoming, North Dakota, Wisconsin, and Ohio (KFF, 2024). Most lawsuits argue that abortion bans are vague (e.g. what exceptions to the bans are permissible) and violate various rights, including the right to privacy and freedom of religion under state constitutions (KFF, 2024). 
+As of October 17th, 2024, there are twenty-eight cases of federal litigation involving access to contraception and abortion (KFF, 2024). The cases challenge a variety of aspects of abortion bans and argue various violations of rights and freedoms, particularly that of the First Amendment (KFF, 2024). For instance, in Matsumoto, et al. v. Labrador, an individual and two organizations challenge an Idaho law that criminalizes helping a minor get an abortion in another state where abortion is legal (KFF, 2024). They argue that “the right to travel freely among and across state borders and First Amendment rights to freely associate, speak, and fund others’ travel across state borders” is violated by the law (KFF, 2024).  
+Many federal cases are also about the role of physicians in providing care under abortion bans. Several cases involve mifepristone, a drug used in more than half of all abortions in the U.S. (Tanne, 2023). In Alliance for Hippocratic Medicine v. Food and Drug Administration, the Alliance for Hippocratic Medicine argued that the FDA wrongly approved mifepristone in 2000 and that it is dangerous (Tanne, 2023). A U.S. District Court in Texas initially blocked availability of mifepristone, but the U.S. Justice Department appealed the decision on behalf of the FDA (Tanne, 2023). The Fifth Circuit Court of Appeals in New Orleans kept the FDA’s approval of mifepristone but allowed various limitations to the availability of the drug (Tanne, 2023). In June 2024, the Supreme Court ruled that Alliance for Hippocratic Medicine did not have the standing to sue the FDA (KFF, 2024). Since then, Missouri, Kansas, and Idaho, have filed an amended complaint that questions the FDA’s decisions and actions on mifepristone since 2016 (KFF, 2024).
+On April 1st, 2024, the Florida Supreme Court issued two decisions related to abortion. First, the Court upheld a fifteen-week abortion ban, overruling precedent that the Florida state constitution’s privacy protections include abortion (Torres-Spelliscy, 2024). This triggered a 6-week abortion ban. However, the Court also upheld a proposed constitutional amendment that would protect the right to abortion up until fetal viability (Torres-Spelliscy, 2024). Floridians will vote on this amendment in November 2024. A recent poll shows that almost forty percent of Florida Republican support the amendment (Stanton, 2024). 
+Outside of Florida, nine other states also have ballot measures that would enshrine abortion as a right in their respective state constitutions: Montana, Arizona, Missouri, Nebraska, Colorado, Maryland, Nevada, New York, and South Dakota (Faguy, 2024). Most seek to protect the right to abortion up to fetal viability, but Nebraska has two competing ballot initiatives (Faguy, 2024). In Nebraska, abortion is currently illegal after the twelfth week of pregnancy with exceptions for rape, incest, and when the mother’s life is threatened (Faguy, 2024). One ballot initiative protects the right to abortion in the state constitution and the other enshrines the current twelve-week abortion ban in the state constitution (Faguy, 2024). 
+The constitutions of three states – California, Michigan, and Vermont – already explicitly secure the right to abortion, while the constitutions of four states – Alabama, Louisiana, Tennessee, and West Virginia – explicitly do not secure the right to abortion (Guttmacher, 2024). 
+Barbara Norrander and Clyde Wilcox (2023) find that from the time of the Roe decision to the Dobbs decision, the majority of Americans supported Roe and opposed the Dobbs decision. Almost sixty percent of Americans favored the Roe decision compared to thirty to forty percent who wanted to see it overturned (Norrander & Wilcox, 2023). They also find that few Americans favor a total ban on abortions and not many more favor completely unregulated abortion; instead, most Americans are “situationalists,” meaning that they believe abortion should be legal in some situations but not all (Norrander & Wilcox, 2023). For instance, there is greater support for abortions in early stages of the pregnancy than in later stages (Norrander & Wilcox, 2023). There is also greater support for abortion for physical reasons like fetal defects than societal reasons like an inability to afford children (Norrander & Wilcox, 2023). 
+Roe was decided in 1973, Casey in 1992, and Dobbs in 2022. Over the course of 49 years, abortion rights were enshrined as a constitutional right, eroded, and removed as a constitutional right. Yet, public opinion on abortion generally remained stable over this time period (Norrander & Wilcox, 2023). Since Dobbs, abortion has become subject to significant changes in regulation -– both the protection and the restriction or prohibition of abortion. The issue is poised to remain a contentious issue in politics and abortion policies will be subject to continued litigation. 
+`;
+// Which character in the string are we up to on the typewriter
+let currentCharacter = 0;
+let currentString = ""
+
+function preload() {
+  // Load my data from the CSV file
+  table = loadTable('TikTokData/updatedBrowsingSept1-7.csv', 'csv', 'header');
+  // heart = loadImage('heart.png');
+}
+
+function setup() {
+  // Create canvas
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.position(0, 0);
+  canvas.style("z-index", "-1");
+
+  // Set phone dimensions
+  phoneWidth = 300;
+  phoneHeight = phoneWidth * 2;
+  phoneHomeButton = phoneHeight - 20;
+  phoneSpeaker = phoneWidth / 4;
+
+  // Create and position slider
+  slider = createSlider(0, 300, 0, 1);
+  slider.position(windowWidth / 2 + 280, windowHeight / 2 - 65);
+
+  // Create and position guess button
+  guessButton = createButton('Submit Guess');
+  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 90);
+
+  // Create and position date menu
+  dateMenu = createSelect();
+  dateMenu.option('Select Date');
+  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2);
+
+  // Create and position new video button
+  videoRandButton = createButton('New Video');
+  videoRandButton.mousePressed(() => randVideo(dateMenu.value()));
+  videoRandButton.position(windowWidth / 2 + 300, windowHeight / 2 + 120);
+
+  // Populate date menu and store video IDs in arrays by date
+  for (let i = 0; i < table.getRowCount(); i++) {
+    let date = table.getString(i, 'Date');
+    let videoID = table.getString(i, 'Video ID');
+
+    if (!videoArrays[date]) {
+      videoArrays[date] = [];
+    }
+    videoArrays[date].push(videoID);
+
+    // Add unique dates to the date menu
+    if (dateMenu.elt.length <= 1 || !Array.from(dateMenu.elt.options).some(option => option.value === date)) {
+      dateMenu.option(date);
+    }
+  }
+  // print(videoArrays);
+  dateMenu.changed(changeData);
+}
+
+function randVideo(date) {
+  if (date in videoArrays) {
+    let videos = videoArrays[date];
+    let randIndex = int(random(videos.length));
+    let selectedVideoID = videos[randIndex];
+
+    // print(`Selected date: ${date}`);
+    // print(`Videos for this date: ${videos}`);
+    // print(`Randomly selected video ID: ${selectedVideoID}`);
+
+    updateTikTokEmbed(selectedVideoID);
+  }
+}
+
+function changeData() {
+  let selectedDate = dateMenu.value();
+  randVideo(selectedDate);
+}
+
+function updateTikTokEmbed(videoID) {
+  if (!tikTokVideo) {
+    tikTokVideo = createElement('iframe', '');
+    tikTokVideo.attribute('class', 'tiktok-embed');
+    tikTokVideo.attribute('style', 'width: 300px; height: 533px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);');
+  }
+  tikTokVideo.attribute('src', 'https://www.tiktok.com/embed/v2/' + videoID + '?lang=en-US&referrer=http%3A%2F%2F127.0.0.1%3A8080%2F');
+  // print(`Video ID: ${videoID}`);
+}
+
+function draw() {
+  background(220);
+
+  // Background ideas
+  currentString = string.substring(0, currentCharacter);
+  fill(0)
+  // text("A paper being typed in the background and news headlines popping up in the background.", 200, 60);
+  push();
+  textSize(12);
+  textFont(`Courier`);
+  textAlign(LEFT, TOP);
+  text(currentString, 50, 50, windowWidth, windowHeight);
+  pop();
+  
+  // Increase the current character so that we get a longer and
+  // longer substring above. Using fractional numbers allows us to
+  // slow down the pace.
+  currentCharacter += 0.3;
+
+  let seconds = slider.value()
+
+  // Phone outline
+  fill(255);
+  stroke(0);
+  strokeWeight(2);
+  rectMode(CENTER);
+  rect(windowWidth / 2, windowHeight / 2, phoneWidth, phoneHeight, 20); // Phone outline
+  rect(windowWidth / 2, phoneSpeaker, 100, 10); // Phone speaker
+  ellipse(windowWidth / 2, phoneHomeButton, 30, 30); // Phone home button
+
+  // Area for slider, buttons, and instructions
+  fill(255);
+  stroke(0);
+  strokeWeight(2);
+  rectMode(CENTER);
+  rect(windowWidth / 2 + 350, windowHeight / 2, 300, 340, 20);
+
+  // Instructions
+  fill(0);
+  noStroke();
+  textSize(14);
+  textAlign(LEFT);
+  text("Browse my TikTok For You page by selecting a date from the drop-down menu. Use the slider to guess how much time I spent watching the video. Press the heart if you think I liked the video. Check if you were right by clicking Submit Guess. Load a new video by pressing New Video.", windowWidth / 2 + 350, windowHeight / 2, 270, 300);
+
+  // Position of select date, slider and buttons
+  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2 - 5);
+  slider.position(windowWidth / 2 + 230, windowHeight / 2 + 25);
+  text(seconds + " seconds", windowWidth / 2 + 400, windowHeight / 2 + 40);
+  // imageMode(CENTER);
+  // image(heart, windowWidth / 2 + 350, windowHeight / 2 + 75);
+  // heart.resize(50, 0);
+  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 105);
+  videoRandButton.position(windowWidth / 2 + 310, windowHeight / 2 + 135);
+
+  drawHeart();
+}
+
+// Draw heart and change color when mouse is pressed
+function drawHeart() {
+  heartX = windowWidth / 2 + 350
+  heartY = windowHeight / 2 + 68
+  const r = 1.5; // change r to adjust the size of the heart
+
+  mouseDist = dist(mouseX, mouseY, heartX, heartY);
+  if(mouseIsPressed && mouseDist < r * 16){
+    heartClicked = !heartClicked
+  }
+
+  if(heartClicked){
+    fill(235, 64, 52)
+  } else {
+    fill(237, 126, 119);
+  }
+
+  translate(heartX, heartY); // position of the heart
+  noStroke();
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += 0.1) {
+    const x = r * 16 * pow(sin(a), 3);
+    const y = -r * (13 * cos(a) - 5 * cos(2 * a) - 2 * cos(3 * a) - cos(4 * a));
+
+    vertex(x, y);
+  }
+  endShape();
+}
