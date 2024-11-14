@@ -145,17 +145,16 @@ function updateTikTokEmbed(videoID) {
 function draw() {
   background(220);
 
-
 let currentString = string.substring(0, currentCharacter);
-
   
+  push();
   fill(0,0,0)
   textSize(12);
   textFont(`Courier`);
  // textAlign(LEFT);
   rectMode(CORNERS);
-  text(currentString, 10, 30, windowWidth, 700);
-
+  text(currentString, 10, 5, windowWidth, 700);
+  pop();
   
   // Increase the current character so that we get a longer and
   // longer substring above. Using fractional numbers allows us to
