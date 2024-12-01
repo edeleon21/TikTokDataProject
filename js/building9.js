@@ -3,13 +3,15 @@ let canvas;
 let slider;
 let guessButton;
 
+let guessBool = false
+
 let table;
 let dateMenu;
 let videoArrays = {}; // Store video arrays by date in an object
 let tikTokVideo;
 let videoSeconds;
 let likedData;
-let liked
+let liked;
 
 let tiktokEmbedBool = false;
 let tiktokBlockQuote;
@@ -20,6 +22,8 @@ let phoneWidth;
 let phoneHeight;
 let phoneHomeButton;
 let phoneSpeaker;
+
+let newsImagesArray = []
 
 const r = 1.5; // change r to adjust the size of the heart
 // let heart;
@@ -60,6 +64,22 @@ function preload() {
   // Load my data from the CSV file
   table = loadTable('TikTokData/updatedBrowsingSept1-7.csv', 'csv', 'header');
   // heart = loadImage('heart.png');
+
+  loadImageArray()
+}
+
+function loadImageArray(){
+  for (let i = 1; i < 35; i++){
+    newsImagesArray[i] = loadImage("newsImages/" + i + ".png")
+  }
+  print(newsImagesArray)
+}
+
+function randomNewsImagePopUp(){
+	imgNumber = int(random(1, 35))
+	// print(imgNumber)
+	window.open("newsImages/" + imgNumber + ".png", "_blank", "width=300, height=300,left=" + random(0, windowWidth) + ",top=" + random(0, windowHeight) + ",resizable=yes,scrollbars=yes");
+
 }
 
 function setup() {
@@ -76,22 +96,23 @@ function setup() {
 
   // Create and position slider
   slider = createSlider(0, 300, 0, 1);
-  slider.position(windowWidth / 2 + 280, windowHeight / 2 - 65);
+  slider.position(windowWidth / 2 + 280, windowHeight / 2 - 75);
 
   // Create and position guess button
   guessButton = createButton('Submit Guess');
-  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 90);
+  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 5);
   guessButton.mousePressed(guessSubmit)
 
   // Create and position date menu
   dateMenu = createSelect();
   dateMenu.option('Select Date');
-  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2);
+  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2 - 105);
 
   // Create and position new video button
   videoRandButton = createButton('New Video');
   videoRandButton.mousePressed(() => randVideo(dateMenu.value()));
-  videoRandButton.position(windowWidth / 2 + 300, windowHeight / 2 + 120);
+  // videoRandButton.mousePressed(randomNewsImagePopUp())
+  videoRandButton.position(windowWidth / 2 + 300, windowHeight / 2 + 35);
 
   // Populate date menu and store video IDs in arrays by date
   for (let i = 0; i < table.getRowCount(); i++) {
@@ -113,23 +134,26 @@ function setup() {
   dateMenu.changed(changeData);
 
   //print(videoArrays)
+
 }
 
 function guessSubmit(){
+	guessBool = true
 	if (slider.value() == videoSeconds){
-    	print("Seconds match.")	
+    	text("Seconds input is correct.", windowWidth / 2 + 280, windowHeight / 2 + 85)	
     	}else{
-    		print("Seconds do not match.")
+    		text("Seconds input is incorrect. " + videoSeconds + " seconds is correct.", windowWidth / 2 + 200, windowHeight / 2 + 85)
     	}
 
   if (liked == likedData){
-  		print("Likes match.")
+  		text("Like input is correct.", windowWidth / 2 + 277, windowHeight / 2 + 105)
   		}else{
-  			print("Likes do not match.")
+  			text("Like input is not correct.", windowWidth / 2 + 277, windowHeight / 2 + 105)
   		}
 }
 
 function randVideo(date) {
+	guessBool = false
   if (date in videoArrays) {
     let videos = videoArrays[date];
     let randIndex = int(random(videos.length));
@@ -137,7 +161,7 @@ function randVideo(date) {
     // let videoSecond = videos[randSeconds]
     let videoSecond = videos[randSeconds]
     let selectedVideoID = videos[randIndex];
-     print(selectedVideoID)
+     // print(selectedVideoID)
 
     // print(`Selected date: ${date}`);
     // print(`Videos for this date: ${videos}`);
@@ -146,15 +170,17 @@ function randVideo(date) {
     for (let i = 0; i < table.getRowCount(); i++) {
     if(table.getString(i, 'Video ID') == selectedVideoID){
     	videoSeconds = table.getString(i, 'Seconds')
-    	print(videoSeconds)
+    	// print(videoSeconds)
     	likedData = table.getString(i, 'Liked')
-    	print(likedData)
+    	// print(likedData)
 
     }
 
 }
     updateTikTokEmbed(selectedVideoID);
   }
+
+    randomNewsImagePopUp()
 }
 
 function changeData() {
@@ -206,29 +232,33 @@ function draw() {
   stroke(0);
   strokeWeight(2);
   rectMode(CENTER);
-  rect(windowWidth / 2 + 350, windowHeight / 2, 300, 340, 20);
+  rect(windowWidth / 2 + 350, windowHeight / 2 - 68, 318, 400, 20);
 
   // Instructions
   fill(0);
   noStroke();
   textSize(14);
   textAlign(LEFT);
-  text("Browse my TikTok For You page by selecting a date from the drop-down menu. Use the slider to guess how much time I spent watching the video. Press the heart if you think I liked the video. Check if you were right by clicking Submit Guess. Load a new video by pressing New Video.", windowWidth / 2 + 350, windowHeight / 2, 270, 300);
+  text("Browse my TikTok For You page by selecting a date from the drop-down menu. Use the slider to guess how much time I spent watching the video. Press the heart if you think I liked the video. Check if you were right by clicking Submit Guess. Load a new video by pressing New Video.", windowWidth / 2 + 350, windowHeight / 2 - 100, 270, 300);
 
   // Position of select date, slider and buttons
-  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2 - 5);
-  slider.position(windowWidth / 2 + 230, windowHeight / 2 + 25);
-  text(seconds + " seconds", windowWidth / 2 + 400, windowHeight / 2 + 40);
+  dateMenu.position(windowWidth / 2 + 300, windowHeight / 2 - 105);
+  slider.position(windowWidth / 2 + 230, windowHeight / 2 - 75);
+  text(seconds + " seconds", windowWidth / 2 + 400, windowHeight / 2 - 60);
   // imageMode(CENTER);
   // image(heart, windowWidth / 2 + 350, windowHeight / 2 + 75);
   // heart.resize(50, 0);
-  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 105);
-  videoRandButton.position(windowWidth / 2 + 310, windowHeight / 2 + 135);
+  guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 5);
+  videoRandButton.position(windowWidth / 2 + 310, windowHeight / 2 + 35);
 
+  push();
   drawHeart();
+  pop();
 
-
-  
+  if(guessBool == true){
+  	guessSubmit()
+  }
+  //guessSubmit();
 
   //print(currentString)
 
@@ -238,7 +268,7 @@ function draw() {
 // Draw heart and change color when mouse is pressed
 function drawHeart() {
   heartX = windowWidth / 2 + 350;
-  heartY = windowHeight / 2 + 68;
+  heartY = windowHeight / 2 - 32;
   
 
   mouseDist = dist(mouseX, mouseY, heartX, heartY);

@@ -7,9 +7,8 @@ let table;
 let dateMenu;
 let videoArrays = {}; // Store video arrays by date in an object
 let tikTokVideo;
-let videoSeconds;
-let likedData;
-let liked
+let videoSeconds
+
 
 let tiktokEmbedBool = false;
 let tiktokBlockQuote;
@@ -21,7 +20,6 @@ let phoneHeight;
 let phoneHomeButton;
 let phoneSpeaker;
 
-const r = 1.5; // change r to adjust the size of the heart
 // let heart;
 let heartClicked = false;
 
@@ -81,7 +79,6 @@ function setup() {
   // Create and position guess button
   guessButton = createButton('Submit Guess');
   guessButton.position(windowWidth / 2 + 300, windowHeight / 2 + 90);
-  guessButton.mousePressed(guessSubmit)
 
   // Create and position date menu
   dateMenu = createSelect();
@@ -102,31 +99,17 @@ function setup() {
       videoArrays[date] = [];
     }
     videoArrays[date].push(videoID);
-    videoArrays[date].push(videoTime);
+    //videoArrays[date].push(videoTime);
 
     // Add unique dates to the date menu
     if (dateMenu.elt.length <= 1 || !Array.from(dateMenu.elt.options).some(option => option.value === date)) {
       dateMenu.option(date);
     }
   }
-  // print(videoArrays);
+   print(videoArrays);
   dateMenu.changed(changeData);
 
   //print(videoArrays)
-}
-
-function guessSubmit(){
-	if (slider.value() == videoSeconds){
-    	print("Seconds match.")	
-    	}else{
-    		print("Seconds do not match.")
-    	}
-
-  if (liked == likedData){
-  		print("Likes match.")
-  		}else{
-  			print("Likes do not match.")
-  		}
 }
 
 function randVideo(date) {
@@ -134,11 +117,10 @@ function randVideo(date) {
     let videos = videoArrays[date];
     let randIndex = int(random(videos.length));
     let randSeconds = int(random(videos.length));
-    // let videoSecond = videos[randSeconds]
-    let videoSecond = videos[randSeconds]
+    //let videoSecond = videos[randSeconds]
     let selectedVideoID = videos[randIndex];
-     print(selectedVideoID)
-
+    //print(selectedVideoID)
+    
     // print(`Selected date: ${date}`);
     // print(`Videos for this date: ${videos}`);
     // print(`Randomly selected video ID: ${selectedVideoID}`);
@@ -147,11 +129,9 @@ function randVideo(date) {
     if(table.getString(i, 'Video ID') == selectedVideoID){
     	videoSeconds = table.getString(i, 'Seconds')
     	print(videoSeconds)
-    	likedData = table.getString(i, 'Liked')
-    	print(likedData)
 
     }
-
+   
 }
     updateTikTokEmbed(selectedVideoID);
   }
@@ -174,16 +154,23 @@ function updateTikTokEmbed(videoID) {
 
 function draw() {
   background(220);
-  let currentString = string.substring(0, currentCharacter);
 
-  push();
+
+let currentString = string.substring(0, currentCharacter);
+ 
+ if (slider.value() == videoSeconds){
+    	print("It Matches")	
+    	}else{
+    		print("It doesn't match")
+    	}
+  
   fill(0,0,0)
   textSize(12);
   textFont(`Courier`);
  // textAlign(LEFT);
   rectMode(CORNERS);
-  text(currentString, 10, 5, windowWidth, 700);
-  pop();
+  text(currentString, 10, 30, windowWidth, 700);
+
   
   // Increase the current character so that we get a longer and
   // longer substring above. Using fractional numbers allows us to
@@ -239,18 +226,17 @@ function draw() {
 function drawHeart() {
   heartX = windowWidth / 2 + 350;
   heartY = windowHeight / 2 + 68;
-  
+  const r = 1.5; // change r to adjust the size of the heart
 
   mouseDist = dist(mouseX, mouseY, heartX, heartY);
-  
+  if (mouseIsPressed && mouseDist < r * 16) {
+    heartClicked = !heartClicked;
+  }
 
   if (heartClicked) {
     fill(235, 64, 52);
-    liked = 1
-
   } else {
     fill(237, 126, 119);
-    liked = 0
   }
 
   translate(heartX, heartY); // position of the heart
@@ -263,10 +249,4 @@ function drawHeart() {
     vertex(x, y);
   }
   endShape();
-}
-
-function mouseClicked(){
-	if (mouseDist < r * 18) {
-    heartClicked = !heartClicked;
-  }
 }
