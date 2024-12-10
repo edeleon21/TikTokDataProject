@@ -18,11 +18,6 @@ let tiktokBlockQuote;
 let tiktokScript;
 let tiktokSectionTag;
 
-let phoneWidth;
-let phoneHeight;
-let phoneHomeButton;
-let phoneSpeaker;
-
 let newsImagesArray = []
 
 const r = 1.5; // change r to adjust the size of the heart
@@ -62,7 +57,7 @@ let currentCharacter = 0;
 
 function preload() {
   // Load my data from the CSV file
-  table = loadTable('TikTokData/updatedBrowsingSept1-7.csv', 'csv', 'header');
+  table = loadTable('TikTokData/Sept1-7_Oct1-7.csv', 'csv', 'header');
   // heart = loadImage('heart.png');
 
   loadImageArray()
@@ -192,7 +187,7 @@ function updateTikTokEmbed(videoID) {
   if (!tikTokVideo) {
     tikTokVideo = createElement('iframe', '');
     tikTokVideo.attribute('class', 'tiktok-embed');
-    tikTokVideo.attribute('style', 'width: 300px; height: 533px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);');
+    tikTokVideo.attribute('style', 'width: 275px; height: 488.583333px; position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%);');
   }
   tikTokVideo.attribute('src', 'https://www.tiktok.com/embed/v2/' + videoID + '?lang=en-US&referrer=http%3A%2F%2F127.0.0.1%3A8080%2F');
   // print(`Video ID: ${videoID}`);
@@ -219,13 +214,15 @@ function draw() {
   let seconds = slider.value();
 
   // Phone outline
-  fill(255);
-  stroke(0);
+  push()
+  fill(0);
+  stroke(220);
   strokeWeight(2);
   rectMode(CENTER);
-  rect(windowWidth / 2, windowHeight / 2, phoneWidth, phoneHeight, 20); // Phone outline
-  rect(windowWidth / 2, phoneSpeaker, 100, 10); // Phone speaker
-  ellipse(windowWidth / 2, phoneHomeButton, 30, 30); // Phone home button
+  rect(windowWidth / 2, windowHeight / 2, 300, 600, 20); // Phone outline
+  rect(windowWidth / 2, windowHeight / 2 - 275, 100, 10); // Phone speaker
+  ellipse(windowWidth / 2, windowHeight / 2 + 265, 30, 30); // Phone home button
+  pop()
 
   // Area for slider, buttons, and instructions
   fill(255);
